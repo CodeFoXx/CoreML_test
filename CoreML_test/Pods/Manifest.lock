@@ -4,6 +4,7 @@ PODS:
     - Alamofire (~> 4.0)
   - DITranquillity (3.1.0)
   - Localize-Swift (2.0.0)
+  - NWPusher (0.7.5)
   - ObjectMapper (3.1.0)
   - RxAlamofire (4.0.0):
     - RxAlamofire/Core (= 4.0.0)
@@ -18,6 +19,7 @@ DEPENDENCIES:
   - CodableAlamofire
   - DITranquillity
   - Localize-Swift
+  - NWPusher (~> 0.7.0)
   - ObjectMapper
   - RxAlamofire
   - SVProgressHUD
@@ -28,12 +30,13 @@ SPEC CHECKSUMS:
   CodableAlamofire: e2d2edcec7cf413f7862c30c8fa98eded27a83f9
   DITranquillity: c7a01350aca46532708c12ccb13764d0e404656c
   Localize-Swift: c798ec9286494866f7068f85f7c71283ac5bdab4
+  NWPusher: 9b29a44754d88cb02c28a1e9bc8750845506123e
   ObjectMapper: 20505058f54e5c3ca69e1d6de9897d152a5369a6
   RxAlamofire: 6ea579ac53bf14cb4bc7049a3866e5a769989b1d
   RxSwift: e49536837d9901277638493ea537394d4b55f570
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftHash: c805de5a434eacfa0dac7210745a50c55d7fe33d
 
-PODFILE CHECKSUM: d642d4739ece05ad3d96eb907e9cedb94de4c82b
+PODFILE CHECKSUM: 7f4cc6c2c414aa694b31836bebac2636fd5abf7c
 
 COCOAPODS: 1.4.0.beta.2

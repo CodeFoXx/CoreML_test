@@ -9,6 +9,8 @@
 import UIKit
 import DITranquillity
 import SVProgressHUD
+import UserNotifications
+import SafariServices
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,7 +25,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         configureSVProgrssHUD()
         buildDependencyComponent()
         setupRootViewController()
+        registerForPushNotifications()
+        
+        if let notification = launchOptions?[.remoteNotification] as? [String: AnyObject]{
+            let aps = notification["aps"] as? [String: AnyObject]
+            _ = NewsItem.makeNewsItem(aps!)
+        }
         return true
+    }
+    
+    func application(_ application: UIApplication,
+                     didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        let tokenParts = deviceToken.map{ data -> String in
+            return String(format: "%02.2hhx", data)
+        }
+        let token = tokenParts.joined()
+        print("Device Token: \(token)")
+    }
+    
+    func application(_ application: UIApplication,
+                     didFailToRegisterForRemoteNotificationsWithError error: Error){
+        print("Failed to register: \(error)")
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -57,6 +79,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         container.append(part: MapDIPart.self)
         if !container.validate(){
             fatalError("DI fatal error")
+        }
+    }
+    
+    func registerForPushNotifications(){
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
+            print("Permission granted: \(granted)")
+            
+            guard granted else { return }
+            self.getNotificationSettings()
+        }
+    }
+    
+    func getNotificationSettings(){
+        UNUserNotificationCenter.current().getNotificationSettings{ (settings) in
+            print("Notification settings: \(settings)")
+            
+            guard settings.authorizationStatus == .authorized else {return}
+            UIApplication.shared.registerForRemoteNotifications()
         }
     }
     

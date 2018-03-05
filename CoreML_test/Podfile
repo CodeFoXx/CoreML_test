@@ -11,6 +11,7 @@ target ‘CoreML_test’ do
   pod 'SwiftHash'
   pod 'Localize-Swift'
   pod 'SVProgressHUD'
+  pod 'NWPusher', '~> 0.7.0'
 
   # Pods for CoreML_test
 

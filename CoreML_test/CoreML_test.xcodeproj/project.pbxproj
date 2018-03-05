@@ -18,7 +18,6 @@
 		F73A0C752032D9FA004F7473 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F73A0C732032D9FA004F7473 /* LaunchScreen.storyboard */; };
 		F73A0C802032D9FA004F7473 /* CoreML_testTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73A0C7F2032D9FA004F7473 /* CoreML_testTests.swift */; };
 		F73A0C8B2032D9FA004F7473 /* CoreML_testUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73A0C8A2032D9FA004F7473 /* CoreML_testUITests.swift */; };
-		F79AC15E20343C540091399C /* Alphanum_28x28.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = F79AC15D20343C540091399C /* Alphanum_28x28.mlmodel */; };
 		F7ABA0212045355300106585 /* KerningLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7ABA0202045355300106585 /* KerningLabel.swift */; };
 		F7ABA03F204540F100106585 /* MapRouterImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7ABA039204540F000106585 /* MapRouterImpl.swift */; };
 		F7ABA040204540F100106585 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7ABA03A204540F100106585 /* MapViewController.swift */; };
@@ -51,6 +50,8 @@
 		F7C2F326203A908C00F3643E /* AppDIPart.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C2F325203A908C00F3643E /* AppDIPart.swift */; };
 		F7C2F328203A90B900F3643E /* NetworkDIPart.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C2F327203A90B900F3643E /* NetworkDIPart.swift */; };
 		F7C2F32A203A989A00F3643E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7C2F329203A989A00F3643E /* Main.storyboard */; };
+		F7E0B027204D40E100D628C7 /* NewsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E0B026204D40E100D628C7 /* NewsItem.swift */; };
+		F7E0B02A204D436B00D628C7 /* NewsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E0B029204D436B00D628C7 /* NewsStore.swift */; };
 		F7FCB51C204CE7CC00AE29FE /* UIViewController Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FCB51B204CE7CC00AE29FE /* UIViewController Extensions.swift */; };
 /* End PBXBuildFile section */
 
@@ -95,7 +96,7 @@
 		F73A0C862032D9FA004F7473 /* CoreML_testUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoreML_testUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F73A0C8A2032D9FA004F7473 /* CoreML_testUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreML_testUITests.swift; sourceTree = "<group>"; };
 		F73A0C8C2032D9FA004F7473 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F79AC15D20343C540091399C /* Alphanum_28x28.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = Alphanum_28x28.mlmodel; path = ../../../../Downloads/Alphanum_28x28.mlmodel; sourceTree = "<group>"; };
+		F772DE1B204D2BCE0072B2CD /* CoreML_test.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CoreML_test.entitlements; sourceTree = "<group>"; };
 		F7ABA0202045355300106585 /* KerningLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KerningLabel.swift; sourceTree = "<group>"; };
 		F7ABA039204540F000106585 /* MapRouterImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapRouterImpl.swift; sourceTree = "<group>"; };
 		F7ABA03A204540F100106585 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -128,6 +129,8 @@
 		F7C2F325203A908C00F3643E /* AppDIPart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDIPart.swift; sourceTree = "<group>"; };
 		F7C2F327203A90B900F3643E /* NetworkDIPart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDIPart.swift; sourceTree = "<group>"; };
 		F7C2F329203A989A00F3643E /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		F7E0B026204D40E100D628C7 /* NewsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsItem.swift; sourceTree = "<group>"; };
+		F7E0B029204D436B00D628C7 /* NewsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsStore.swift; sourceTree = "<group>"; };
 		F7FCB51B204CE7CC00AE29FE /* UIViewController Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -228,13 +231,13 @@
 		F73A0C692032D9F9004F7473 /* CoreML_test */ = {
 			isa = PBXGroup;
 			children = (
+				F772DE1B204D2BCE0072B2CD /* CoreML_test.entitlements */,
 				F7FCB51A204CE79E00AE29FE /* Extension */,
 				F7ABA01E2045353400106585 /* Common */,
 				F7C2F324203A907600F3643E /* DI */,
 				F7C2F323203A884F00F3643E /* CustomView */,
 				F7039E392032DB6C00DE63E8 /* Models */,
 				F73A0C6A2032D9F9004F7473 /* AppDelegate.swift */,
-				F79AC15D20343C540091399C /* Alphanum_28x28.mlmodel */,
 				F7039E3A2032ECDA00DE63E8 /* Inceptionv3.mlmodel */,
 				F73A0C6C2032D9F9004F7473 /* ViewController.swift */,
 				F73A0C712032D9FA004F7473 /* Assets.xcassets */,
@@ -266,6 +269,8 @@
 		F7ABA01E2045353400106585 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				F7E0B028204D435D00D628C7 /* Helpers */,
+				F7E0B025204D403B00D628C7 /* Classes */,
 				F7ABA01F2045353C00106585 /* Views */,
 			);
 			path = Common;
@@ -367,6 +372,22 @@
 			path = DI;
 			sourceTree = "<group>";
 		};
+		F7E0B025204D403B00D628C7 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				F7E0B026204D40E100D628C7 /* NewsItem.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		F7E0B028204D435D00D628C7 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				F7E0B029204D436B00D628C7 /* NewsStore.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		F7FCB51A204CE79E00AE29FE /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -453,6 +474,11 @@
 					F73A0C662032D9F9004F7473 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					F73A0C7A2032D9FA004F7473 = {
 						CreatedOnToolsVersion = 9.2;
@@ -576,6 +602,7 @@
 				"${BUILT_PRODUCTS_DIR}/CodableAlamofire/CodableAlamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/DITranquillity/DITranquillity.framework",
 				"${BUILT_PRODUCTS_DIR}/Localize-Swift/Localize_Swift.framework",
+				"${BUILT_PRODUCTS_DIR}/NWPusher/NWPusher.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/RxAlamofire/RxAlamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
@@ -588,6 +615,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CodableAlamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DITranquillity.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Localize_Swift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NWPusher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAlamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
@@ -701,15 +729,16 @@
 				F7ABA0462045410500106585 /* ArtworkView.swift in Sources */,
 				F7C2F320203A860A00F3643E /* OCRPresenterImpl.swift in Sources */,
 				F7C2F312203A85CC00F3643E /* MainContract.swift in Sources */,
-				F79AC15E20343C540091399C /* Alphanum_28x28.mlmodel in Sources */,
 				F7C2F316203A85CC00F3643E /* MainViewController.swift in Sources */,
 				F7C2F314203A85CC00F3643E /* MainPresenterImpl.swift in Sources */,
 				F7C2F315203A85CC00F3643E /* MainRouterImpl.swift in Sources */,
 				F7ABA0492045411600106585 /* Artwork.swift in Sources */,
 				F7C2F328203A90B900F3643E /* NetworkDIPart.swift in Sources */,
 				F7C2F308203A85BA00F3643E /* TextDetectorPresenterImpl.swift in Sources */,
+				F7E0B027204D40E100D628C7 /* NewsItem.swift in Sources */,
 				F7ABA0212045355300106585 /* KerningLabel.swift in Sources */,
 				F7C2F326203A908C00F3643E /* AppDIPart.swift in Sources */,
+				F7E0B02A204D436B00D628C7 /* NewsStore.swift in Sources */,
 				F7C2F321203A860A00F3643E /* OCRRouterImpl.swift in Sources */,
 				F7C2F307203A85BA00F3643E /* TextDetectorDIPart.swift in Sources */,
 				F7C2F309203A85BA00F3643E /* TextDetectorRouterImpl.swift in Sources */,
@@ -879,11 +908,12 @@
 			baseConfigurationReference = E1C22710EDB294461B473597 /* Pods-CoreML_test.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = CoreML_test/CoreML_test.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2M4R3DEKQ6;
+				DEVELOPMENT_TEAM = AX2Q69AHCF;
 				INFOPLIST_FILE = CoreML_test/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "PolinaOsina.CoreML-test";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sspsoft.core;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -895,11 +925,12 @@
 			baseConfigurationReference = CC55BB65CA5297EF7766D464 /* Pods-CoreML_test.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = CoreML_test/CoreML_test.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2M4R3DEKQ6;
+				DEVELOPMENT_TEAM = AX2Q69AHCF;
 				INFOPLIST_FILE = CoreML_test/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "PolinaOsina.CoreML-test";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sspsoft.core;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
