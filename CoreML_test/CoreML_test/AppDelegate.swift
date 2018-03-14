@@ -12,6 +12,11 @@ import SVProgressHUD
 import UserNotifications
 import SafariServices
 
+
+fileprivate let viewActionIdentifier = "VIEW_IDENTIFIER"
+fileprivate let newsCategoryIdentifier = "NEWS_CATEGORY"
+
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -27,11 +32,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setupRootViewController()
         registerForPushNotifications()
         
+        UNUserNotificationCenter.current().delegate = self
+
         if let notification = launchOptions?[.remoteNotification] as? [String: AnyObject]{
             let aps = notification["aps"] as? [String: AnyObject]
             _ = NewsItem.makeNewsItem(aps!)
+            let notificationViewController = *container as NotificationViewController
+            let navigationController = UINavigationController(rootViewController: notificationViewController)
+            window!.rootViewController = navigationController
+
         }
         return true
+        
     }
     
     func application(_ application: UIApplication,
@@ -46,6 +58,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication,
                      didFailToRegisterForRemoteNotificationsWithError error: Error){
         print("Failed to register: \(error)")
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        let aps = userInfo["aps"] as! [String: AnyObject]
+        _ = NewsItem.makeNewsItem(aps)
+        if aps["content-available"] as? Int == 1{
+
+        }else{
+            _ = NewsItem.makeNewsItem(aps)
+            completionHandler(.newData)
+        }
+        
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -77,29 +101,47 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         container.append(part: MainDIPart.self)
         container.append(part: TextDetectorDIPart.self)
         container.append(part: MapDIPart.self)
+        container.append(part: NotificationDIPart.self)
+        container.append(part: LocalNotificationDIPart.self)
         if !container.validate(){
             fatalError("DI fatal error")
         }
     }
     
     func registerForPushNotifications(){
+        
+//        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (permissionGranted, error) in
+//            
+//            //3 - Handle your error
+//            print(error as Any)
+//        }
+        
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
             print("Permission granted: \(granted)")
-            
+
             guard granted else { return }
+
+            let viewAction = UNNotificationAction(identifier: viewActionIdentifier,
+                                                  title: "View", options: [.foreground])
+            let newsCategoty = UNNotificationCategory(identifier: newsCategoryIdentifier,
+                                                      actions: [viewAction],
+                                                      intentIdentifiers: [],
+                                                      options: [])
+            UNUserNotificationCenter.current().setNotificationCategories([newsCategoty])
             self.getNotificationSettings()
         }
     }
-    
+
     func getNotificationSettings(){
         UNUserNotificationCenter.current().getNotificationSettings{ (settings) in
             print("Notification settings: \(settings)")
-            
+
             guard settings.authorizationStatus == .authorized else {return}
             UIApplication.shared.registerForRemoteNotifications()
         }
     }
     
+   
     private func setupAppearence(){
         UINavigationBar.appearance().backIndicatorImage = #imageLiteral(resourceName: "back_button_gray").withRenderingMode(.alwaysOriginal)
         UINavigationBar.appearance().backIndicatorTransitionMaskImage = #imageLiteral(resourceName: "back_button_gray")
@@ -117,5 +159,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window!.makeKeyAndVisible()
     }
 
+}
+
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    
+    @available(iOS 10, *)
+    private func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: (UNNotificationPresentationOptions) -> Void) {
+        let userInfo = response.notification.request.content.userInfo
+        let aps = userInfo["aps"] as! [String: AnyObject]
+        
+        if let newsItem = NewsItem.makeNewsItem(aps){
+            if response.actionIdentifier == viewActionIdentifier,
+                let url = URL(string: newsItem.link){
+                let safari = SFSafariViewController(url: url)
+                window?.rootViewController?.present(safari, animated: true, completion: nil)
+            }
+        }
+        completionHandler([.alert, .sound, .badge])
+    }
+        
+   
 }
 

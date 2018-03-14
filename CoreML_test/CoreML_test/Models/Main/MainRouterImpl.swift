@@ -20,7 +20,7 @@ class MainRouterImpl: MainRouter {
     }
     
     func navigateToTextDetectorView(){
-        let textDetectionVC: MapViewController = *container
+        let textDetectionVC: LocalNotificationViewController = *container
         let titleLabel = UILabel()
         titleLabel.text = "TXT"
         textDetectionVC.navigationItem.titleView = titleLabel

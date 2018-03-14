@@ -9,80 +9,83 @@
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController, CLLocationManagerDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
-    var presenter: MapPresenter!
     
+    var presenter: MapPresenter!
     let regionRadius: CLLocationDistance = 1000
     var artWorks: [Artwork] = []
     let locationManager = CLLocationManager()
     var previousAnnotation = MKPointAnnotation()
+    var currentPlaceMark: CLPlacemark?
 
 
+    @IBAction func showDirection(_ sender: Any) {
+        
+        mapView.removeOverlays(mapView.overlays)
+        guard let currentPlacemark = currentPlaceMark else{
+            return
+        }
+        
+        let directionRequest = MKDirectionsRequest()
+        let destinationPlacemark = MKPlacemark(placemark: currentPlaceMark!)
+        
+        directionRequest.source = MKMapItem.forCurrentLocation()
+        
+        directionRequest.destination = MKMapItem(placemark: destinationPlacemark)
+        directionRequest.transportType = .automobile
+        
+        //calculate the route
+        let directions = MKDirections(request: directionRequest)
+        directions.calculate{ (directionResponse, error) in
+            guard let directionResponse = directionResponse else{
+                if let error = error {
+                    print("error getting directions: \(error.localizedDescription)")
+                }
+                return
+            }
+            
+            let route = directionResponse.routes[0]
+            self.mapView.add(route.polyline, level: .aboveRoads)
+        }
+    }
+    
     @IBAction func pinPress(_ sender: UILongPressGestureRecognizer) {
     
         let location = sender.location(in: mapView)
         let locCord = self.mapView.convert(location, toCoordinateFrom: self.mapView)
-        
+
         let annotation = MKPointAnnotation()
+        
         annotation.coordinate = locCord
-        annotation.title = "Store"
-        annotation.subtitle = "Location of Store"
-        
-        let c = mapView.annotations.count-1
-        let prevAnnotation = mapView.annotations[c]
-        
-//        if self.mapView.annotations.count > 2 {
-//            self.mapView.removeAnnotations(mapView.annotations)
-//            self.mapView.removeOverlays(mapView.overlays)
-//        }
-        
+        annotation.title = "Destination"
+        annotation.subtitle = "Location of Destination"
+        let a = Artwork(title: "Destination", locationName: "Destination", discipline: "Destination", coordinate: locCord)
+        artWorks.append(a)
         self.mapView.removeAnnotations(mapView.annotations)
         self.mapView.removeOverlays(mapView.overlays)
-        
-        let c1 = mapView.annotations.count-1
-        
-        if (previousAnnotation.title != "null"){
-            self.mapView.addAnnotation(previousAnnotation)
-            self.mapView.addAnnotation(annotation)
-            let count = self.mapView.annotations.count
-            //Draw route between 2 points
-            if self.mapView.annotations.count == 2{
-                drawRoute(sourceLocation: prevAnnotation.coordinate, destinationLocation: annotation.coordinate)
-                
-            }
-        }else{
-            self.mapView.addAnnotation(prevAnnotation)
-            previousAnnotation.title = "source"
-            self.mapView.addAnnotation(annotation)
-            let count = self.mapView.annotations.count
-            //Draw route between 2 points
-            if self.mapView.annotations.count == 2{
-                drawRoute(sourceLocation: prevAnnotation.coordinate, destinationLocation: annotation.coordinate)
-                
-            }
-        }
-        
-        previousAnnotation = annotation
+        self.mapView.addAnnotation(artWorks[artWorks.count-1])
         
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         previousAnnotation.title = "null"
         
-        
-        let location = CLLocation(latitude: 21.282778, longitude: -157.829444)
-        centerMapOnLocation(location: location)
-        
         mapView.delegate = self
-        let location2D = CLLocationCoordinate2D(latitude: 21.282778, longitude: -157.829444)
         
-        //let region = MKCoordinateRegion(center: location, span: span)
+        mapView.showsScale = true
+        mapView.showsCompass = true
+        mapView.showsTraffic = true
+        mapView.showsPointsOfInterest = true
         
-        
-        //let bigBen = Artwork(title: "King David Kalakaua", locationName: "Waikiki Gateway Park", discipline: "Sculpture", coordinate: location2D)
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+        locationManager.stopUpdatingLocation()
         
         mapView.isZoomEnabled = true
         if #available(iOS 11.0, *) {
@@ -152,7 +155,7 @@ class MapViewController: UIViewController {
         let directionRequest = MKDirectionsRequest()
         directionRequest.source = sourceMapItem
         directionRequest.destination = destinationMapItem
-        directionRequest.transportType = .automobile
+        directionRequest.transportType = .any
         
         
         let directions = MKDirections(request: directionRequest)
@@ -211,7 +214,26 @@ extension MapViewController: MapView, MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let renderer = MKPolylineRenderer(polyline: overlay as! MKPolyline)
         renderer.strokeColor = UIColor.red
-        renderer.lineWidth = 2
+        renderer.lineWidth = 3.0
         return renderer
     }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        if let location = view.annotation as? Artwork{
+            self.currentPlaceMark = MKPlacemark(coordinate: location.coordinate)
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        let location = locations[0]
+        
+        let center = location.coordinate
+        let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+        let region = MKCoordinateRegion(center: center, span: span)
+        mapView.setRegion(region, animated: true)
+        
+        mapView.showsUserLocation = true
+    }
+    
 }

@@ -22,14 +22,14 @@ final class NewsItem: NSObject{
     
     class func makeNewsItem(_ notificationDictionary: [String: AnyObject]) -> NewsItem? {
         if let news = notificationDictionary["alert"] as? String,
-            let url = notificationDictionary["url_link"] as? String{
+            let url = notificationDictionary["link_url"] as? String{
             let date = Date()
             
             let newsItem = NewsItem(title: news, date: date, link: url)
             let newsStore = NewsStore.shared
             newsStore.add(item: newsItem)
             
-//            NotificationCenter.default.post(name: Notification.Name(rawValue: NewsFeedTableViewController.RefreshNewsFeedNotification), object: self)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: NotificationViewController.refreshNewsFeedNotification), object: self)
             return newsItem
         }
         return nil
